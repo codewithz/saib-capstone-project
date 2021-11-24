@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.saib.config.ApiSuccessPayload;
 import com.saib.models.Account;
 import com.saib.services.AccountService;
+import com.saib.util.Results;
 
 @RestController
 public class AccountController {
@@ -48,14 +49,27 @@ public class AccountController {
 	@GetMapping("/accounts/{accountNumber}")
 	public ResponseEntity<ApiSuccessPayload> getAccountbyAccountNumber(@PathVariable long accountNumber)
 	{
-		return null;
+		Account account=accountService.getAccountByAccountNumber(accountNumber);
+		
+		ApiSuccessPayload payload=ApiSuccessPayload.build(account, "Success",HttpStatus.OK);
+		ResponseEntity<ApiSuccessPayload> response=new ResponseEntity<ApiSuccessPayload>(payload,HttpStatus.OK);
+		return response;
 	}
 	
 	@PostMapping("/accounts")
 	public ResponseEntity<ApiSuccessPayload> addAccount(@RequestBody Account account)
 	{
+		ResponseEntity<ApiSuccessPayload> response=null;
+		System.out.println(account);
 		String result=accountService.addAccount(account);
-		return null;
+		if(result.equalsIgnoreCase(Results.SUCCESS))
+		{
+			ApiSuccessPayload payload=ApiSuccessPayload.build(result, "Account created successfully", HttpStatus.CREATED);
+			response=new ResponseEntity<ApiSuccessPayload>(payload,HttpStatus.CREATED);
+		}
+		
+		return response;
+	
 	}
 	
 	@PutMapping("/accounts/{accountNumber}")
