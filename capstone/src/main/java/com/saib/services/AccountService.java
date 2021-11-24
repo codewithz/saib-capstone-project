@@ -55,5 +55,41 @@ public class AccountService {
 		
 		return result;
 	}
+	
+	public String updateAccount(Account account, long accountNumber)
+	{
+		String result="";
+		
+		account.setAccountNumber(accountNumber);
+		Account updatedAccount=accountRepository.save(account);
+		
+		if(updatedAccount!=null)
+		{
+			result=Results.SUCCESS;
+		}
+		else
+		{
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Record was not updated");
+		}
+		return result;
+		
+	}
+	
+	public String deleteAccount(long accountNumber)
+	{
+		String result="";
+		try {
+		accountRepository.deleteById(accountNumber);
+		
+		
+			result=Results.SUCCESS;
+			return result;
+		}
+		catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+		
+		
+	}
 
 }
