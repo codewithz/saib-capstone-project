@@ -5,7 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saib.config.ApiSuccessPayload;
@@ -39,6 +44,33 @@ public class AccountController {
 		return response;
 		
 	}
+	
+	@GetMapping("/accounts/{accountNumber}")
+	public ResponseEntity<ApiSuccessPayload> getAccountbyAccountNumber(@PathVariable long accountNumber)
+	{
+		return null;
+	}
+	
+	@PostMapping("/accounts")
+	public ResponseEntity<ApiSuccessPayload> addAccount(@RequestBody Account account)
+	{
+		String result=accountService.addAccount(account);
+		return null;
+	}
+	
+	@PutMapping("/accounts/{accountNumber}")
+	public ResponseEntity<ApiSuccessPayload> updateAccount(@RequestBody Account account, @PathVariable long accountNumber)
+	{
+		return null;
+	}
+	
+	@DeleteMapping("/accounts/{accountNumber}")
+	public ResponseEntity<ApiSuccessPayload> deleteAccount(@PathVariable long accountNumber)
+	{
+		return null;
+	}
+	
+	
 	
 	
 
